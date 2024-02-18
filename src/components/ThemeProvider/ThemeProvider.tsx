@@ -12,53 +12,36 @@ export function generateColorPalette(hue: number): ThemePalette {
     const baseSaturation = 100;
     const baseLightness = 50;
     
-    const primaryColour1 = generateHSLColor(hue, baseSaturation, adjustLightness(baseLightness, 0.2));
-    const primaryColour2 = generateHSLColor(hue, baseSaturation, adjustLightness(baseLightness, 0.1));
-    const primaryColour3 = generateHSLColor(hue, baseSaturation, baseLightness);
-    const primaryColour4 = generateHSLColor(hue, baseSaturation, adjustLightness(baseLightness, -0.1));
-    const primaryColour5 = generateHSLColor(hue, baseSaturation, adjustLightness(baseLightness, -0.2));
-
-    const complementaryHue = (hue + 180) % 360;
-    const secondaryColour1 = generateHSLColor(complementaryHue, baseSaturation, adjustLightness(baseLightness, 0.2));
-    const secondaryColour2 = generateHSLColor(complementaryHue, baseSaturation, adjustLightness(baseLightness, 0.1));
-    const secondaryColour3 = generateHSLColor(complementaryHue, baseSaturation, baseLightness);
-    const secondaryColour4 = generateHSLColor(complementaryHue, baseSaturation, adjustLightness(baseLightness, -0.1));
-    const secondaryColour5 = generateHSLColor(complementaryHue, baseSaturation, adjustLightness(baseLightness, -0.2));
-
-    const danger = generateHSLColor(0, baseSaturation, baseLightness);
-    const success = generateHSLColor(120, baseSaturation, baseLightness);
-    const info = generateHSLColor(240, baseSaturation, baseLightness);
-    const warning = generateHSLColor(60, baseSaturation, baseLightness);
-
-    const white = generateHSLColor(0, 0, 100);
-    const grey1 = generateHSLColor(0, 0, 80);
-    const grey2 = generateHSLColor(0, 0, 60);
-    const grey3 = generateHSLColor(0, 0, 40);
-    const grey4 = generateHSLColor(0, 0, 20);
-    const black = generateHSLColor(0, 0, 0);
-
-    return {
-        primaryColour1,
-        primaryColour2,
-        primaryColour3,
-        primaryColour4,
-        primaryColour5,
-        secondaryColour1,
-        secondaryColour2,
-        secondaryColour3,
-        secondaryColour4,
-        secondaryColour5,
-        danger,
-        success,
-        info,
-        warning,
-        white,
-        grey1,
-        grey2,
-        grey3,
-        grey4,
-        black,
+    const palette: ThemePalette = {
+        primaryColour1: generateHSLColor(hue, baseSaturation, adjustLightness(baseLightness, 0.2)),
+        primaryColour2: generateHSLColor(hue, baseSaturation, adjustLightness(baseLightness, 0.1)),
+        primaryColour3: generateHSLColor(hue, baseSaturation, baseLightness),
+        primaryColour4: generateHSLColor(hue, baseSaturation, adjustLightness(baseLightness, -0.1)),
+        primaryColour5: generateHSLColor(hue, baseSaturation, adjustLightness(baseLightness, -0.2)),
+        secondaryColour1: generateHSLColor((hue + 180) % 360, baseSaturation, adjustLightness(baseLightness, 0.2)),
+        secondaryColour2: generateHSLColor((hue + 180) % 360, baseSaturation, adjustLightness(baseLightness, 0.1)),
+        secondaryColour3: generateHSLColor((hue + 180) % 360, baseSaturation, baseLightness),
+        secondaryColour4: generateHSLColor((hue + 180) % 360, baseSaturation, adjustLightness(baseLightness, -0.1)),
+        secondaryColour5: generateHSLColor((hue + 180) % 360, baseSaturation, adjustLightness(baseLightness, -0.2)),
+        danger: generateHSLColor(0, baseSaturation, baseLightness),
+        success: generateHSLColor(120, baseSaturation, baseLightness),
+        info: generateHSLColor(240, baseSaturation, baseLightness),
+        warning: generateHSLColor(60, baseSaturation, baseLightness),
+        white: generateHSLColor(0, 0, 100),
+        grey1: generateHSLColor(0, 0, 80),
+        grey2: generateHSLColor(0, 0, 60),
+        grey3: generateHSLColor(0, 0, 40),
+        grey4: generateHSLColor(0, 0, 20),
+        black: generateHSLColor(0, 0, 0),
     };
+
+    return palette;
+}
+
+export function generateTheme(hue:number): Theme {
+    return {
+        palette: generateColorPalette(hue)
+    }
 }
 
 export type ThemePalette = {
@@ -84,6 +67,10 @@ export type ThemePalette = {
     black: string,
 };
 
+export type Theme = {
+    palette: ThemePalette,
+}
+
 interface ThemeProviderProps {
     children: ReactNode;
     colour: number; // Assuming 'colour' is a hue value (0-360)
@@ -91,9 +78,9 @@ interface ThemeProviderProps {
 
 export const DEFAULT_THEME = generateColorPalette(60);
 
-const ThemeContext = createContext<ThemePalette | undefined>(undefined);
+const ThemeContext = createContext<Theme | undefined>(undefined);
 
-export const useTheme = (): ThemePalette => {
+export const useTheme = (): Theme => {
     const context = useContext(ThemeContext);
     if (!context) {
         throw new Error('useTheme must be used within a ThemeProvider');
@@ -102,10 +89,10 @@ export const useTheme = (): ThemePalette => {
 };
 
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children, colour }) => {
-    const palette: ThemePalette = useMemo(() => generateColorPalette(colour), [colour]);
+    const theme: Theme = useMemo(() => generateTheme(colour), [colour]);
 
     return (
-        <ThemeContext.Provider value={palette}>
+        <ThemeContext.Provider value={theme}>
             {children}
         </ThemeContext.Provider>
     );

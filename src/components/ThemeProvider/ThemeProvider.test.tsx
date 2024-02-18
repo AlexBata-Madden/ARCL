@@ -68,28 +68,28 @@ describe('ThemeProvider and useTheme hook', () => {
 
     const themeDiv = screen.getByTestId('theme');
     const theme = JSON.parse(themeDiv.textContent || '{}');
-    expect(theme.primaryColour1).toBe('hsl(180, 100%, 70%)');
-    expect(theme.primaryColour2).toBe('hsl(180, 100%, 60%)');
-    expect(theme.primaryColour3).toBe('hsl(180, 100%, 50%)');
-    expect(theme.primaryColour4).toBe('hsl(180, 100%, 40%)');
-    expect(theme.primaryColour5).toBe('hsl(180, 100%, 30%)');
+    expect(theme.palette.primaryColour1).toBe('hsl(180, 100%, 70%)');
+    expect(theme.palette.primaryColour2).toBe('hsl(180, 100%, 60%)');
+    expect(theme.palette.primaryColour3).toBe('hsl(180, 100%, 50%)');
+    expect(theme.palette.primaryColour4).toBe('hsl(180, 100%, 40%)');
+    expect(theme.palette.primaryColour5).toBe('hsl(180, 100%, 30%)');
 
-    expect(theme.secondaryColour1).toBe('hsl(0, 100%, 70%)');
-    expect(theme.secondaryColour2).toBe('hsl(0, 100%, 60%)');
-    expect(theme.secondaryColour3).toBe('hsl(0, 100%, 50%)');
-    expect(theme.secondaryColour4).toBe('hsl(0, 100%, 40%)');
-    expect(theme.secondaryColour5).toBe('hsl(0, 100%, 30%)');
+    expect(theme.palette.secondaryColour1).toBe('hsl(0, 100%, 70%)');
+    expect(theme.palette.secondaryColour2).toBe('hsl(0, 100%, 60%)');
+    expect(theme.palette.secondaryColour3).toBe('hsl(0, 100%, 50%)');
+    expect(theme.palette.secondaryColour4).toBe('hsl(0, 100%, 40%)');
+    expect(theme.palette.secondaryColour5).toBe('hsl(0, 100%, 30%)');
 
-    expect(theme.danger).toBe('hsl(0, 100%, 50%)');
-    expect(theme.success).toBe('hsl(120, 100%, 50%)');
-    expect(theme.info).toBe('hsl(240, 100%, 50%)');
-    expect(theme.warning).toBe('hsl(60, 100%, 50%)');
+    expect(theme.palette.danger).toBe('hsl(0, 100%, 50%)');
+    expect(theme.palette.success).toBe('hsl(120, 100%, 50%)');
+    expect(theme.palette.info).toBe('hsl(240, 100%, 50%)');
+    expect(theme.palette.warning).toBe('hsl(60, 100%, 50%)');
 
-    expect(theme.white).toBe('hsl(0, 0%, 100%)');
-    expect(theme.grey1).toBe('hsl(0, 0%, 80%)');
-    expect(theme.grey2).toBe('hsl(0, 0%, 60%)');
-    expect(theme.grey3).toBe('hsl(0, 0%, 40%)');
-    expect(theme.grey4).toBe('hsl(0, 0%, 20%)');
-    expect(theme.black).toBe('hsl(0, 0%, 0%)');
+    expect(theme.palette.white).toBe('hsl(0, 0%, 100%)');
+    expect(theme.palette.grey1).toBe('hsl(0, 0%, 80%)');
+    expect(theme.palette.grey2).toBe('hsl(0, 0%, 60%)');
+    expect(theme.palette.grey3).toBe('hsl(0, 0%, 40%)');
+    expect(theme.palette.grey4).toBe('hsl(0, 0%, 20%)');
+    expect(theme.palette.black).toBe('hsl(0, 0%, 0%)');
   });
 });
