@@ -24,7 +24,7 @@ export const Default: StoryObj<typeof ThemeProvider> = {
 
       return (
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-          {Object.entries(theme).map(([colorName, colorValue]) => (
+          {Object.entries(theme.palette).map(([colorName, colorValue]) => (
             <div
               key={colorName}
               style={{

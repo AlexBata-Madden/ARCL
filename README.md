@@ -2,6 +2,7 @@
 Alex's React Component Library
 
 TODO:
+- [x] ThemeProvider
 - [ ] Headings
 - [ ] Paragraphs
 - [ ] Labels
