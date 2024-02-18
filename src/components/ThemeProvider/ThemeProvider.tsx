@@ -1,14 +1,14 @@
 import React, { createContext, useContext, useMemo, ReactNode } from 'react';
 
-function adjustLightness(lightness: number, amount: number): number {
+export function adjustLightness(lightness: number, amount: number): number {
     return Math.max(0, Math.min(100, lightness + amount * 100));
 }
 
-function generateHSLColor(h: number, s: number, l: number): string {
+export function generateHSLColor(h: number, s: number, l: number): string {
     return `hsl(${h}, ${s}%, ${l}%)`;
 }
 
-function generateColorPalette(hue: number): ThemePalette {
+export function generateColorPalette(hue: number): ThemePalette {
     const baseSaturation = 100;
     const baseLightness = 50;
     
@@ -30,6 +30,13 @@ function generateColorPalette(hue: number): ThemePalette {
     const info = generateHSLColor(240, baseSaturation, baseLightness);
     const warning = generateHSLColor(60, baseSaturation, baseLightness);
 
+    const white = generateHSLColor(0, 0, 100);
+    const grey1 = generateHSLColor(0, 0, 80);
+    const grey2 = generateHSLColor(0, 0, 60);
+    const grey3 = generateHSLColor(0, 0, 40);
+    const grey4 = generateHSLColor(0, 0, 20);
+    const black = generateHSLColor(0, 0, 0);
+
     return {
         primaryColour1,
         primaryColour2,
@@ -45,10 +52,16 @@ function generateColorPalette(hue: number): ThemePalette {
         success,
         info,
         warning,
+        white,
+        grey1,
+        grey2,
+        grey3,
+        grey4,
+        black,
     };
 }
 
-type ThemePalette = {
+export type ThemePalette = {
     primaryColour1: string,
     primaryColour2: string,
     primaryColour3: string,
@@ -63,12 +76,20 @@ type ThemePalette = {
     success: string,
     info: string,
     warning: string,
+    white: string,
+    grey1: string,
+    grey2: string,
+    grey3: string,
+    grey4: string,
+    black: string,
 };
 
 interface ThemeProviderProps {
     children: ReactNode;
     colour: number; // Assuming 'colour' is a hue value (0-360)
 }
+
+export const DEFAULT_THEME = generateColorPalette(60);
 
 const ThemeContext = createContext<ThemePalette | undefined>(undefined);
 

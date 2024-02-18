@@ -22,13 +22,6 @@ export const Default: StoryObj<typeof ThemeProvider> = {
     const ColorDisplay: React.FC = () => {
       const theme = useTheme();
 
-            // Console log each color name and value
-            React.useEffect(() => {
-              Object.entries(theme).forEach(([colorName, colorValue]) => {
-                console.log(`${colorName}: ${colorValue}`);
-              });
-            }, [theme]);
-
       return (
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
           {Object.entries(theme).map(([colorName, colorValue]) => (
@@ -48,7 +41,6 @@ export const Default: StoryObj<typeof ThemeProvider> = {
         </div>
       );
     };
-
 
     return (
       <ThemeProvider colour={colour}>
